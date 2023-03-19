@@ -2,6 +2,8 @@ using ContactPlus.Data;
 using ContactPlus.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ContactPlus.Services;
+using ContactPlus.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+///custom Services
+builder.Services.AddScoped<IImageService, ImageService>();
 
 var app = builder.Build();
 

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authorization;
 using ContactPlus.Data;
 using ContactPlus.Models;
 using ContactPlus.Enums;
+using ContactPlus.Services.Interfaces;
+using ContactPlus.Services;
 
 namespace ContactPlus.Controllers
 {
@@ -17,11 +19,15 @@ namespace ContactPlus.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IImageService _imageService;
 
-        public ContactsController(ApplicationDbContext context, UserManager<AppUser> userManager)
+        public ContactsController(ApplicationDbContext context, 
+                                  UserManager<AppUser> userManager,
+                                  IImageService imageService)
         {
             _context = context;
             _userManager = userManager;
+            _imageService = imageService;
         }
 
         // GET: Contacts
@@ -79,7 +85,13 @@ namespace ContactPlus.Controllers
                 if (contact.BirthDate !=null)
                 {
                     contact.BirthDate = DateTime.SpecifyKind(contact.BirthDate.Value, DateTimeKind.Utc);
-                }    
+                }
+
+                if (contact.ImageFile != null)
+                {
+                    contact.ImageData = await _imageService.ConvertFileToByteArrayAsync(contact.ImageFile);
+                    contact.ImageType = contact.ImageFile.ContentType;
+                }
                 
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
