@@ -1,4 +1,4 @@
-﻿ @using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 
 @inject SignInManager<AppUser> SignInManager
 
@@ -55,6 +55,7 @@
                             </li>
                         }
                     </ul>
+                    </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -92,7 +93,7 @@
         </nav>-->
     </header>
     <main class="content" id="mainHero">
-        <section class="container  h-100">
+        <section class="container-fluid  h-100">
             @RenderBody()
         </section>
     </main>
