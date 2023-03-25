@@ -1,7 +1,6 @@
 ﻿using ContactPlus.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ContactPlus.Enums;
 
 namespace ContactPlus.Models
 {
